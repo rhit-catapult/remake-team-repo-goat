@@ -10,7 +10,7 @@ pygame.init()
 
 WIDTH, HEIGHT = 1000, 700
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("增强版 2D 射击闯关游戏 - 移动优化版")
+pygame.display.set_caption("Shooting Game -- GOAT Studio")
 
 
 BACKGROUND = (40, 44, 52)
