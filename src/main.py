@@ -100,9 +100,13 @@ def main():
                 player_instance.is_shooting = False
 
             if player_instance.is_shooting:  # 左键射击
-                if player_instance.last_shoot_time - pygame.time.get_ticks() < 30:
+                if player_instance.weapons[player_instance.current_weapon] == "Rifle":
+                    if player_instance.last_shoot_time - pygame.time.get_ticks() < 30:
+                        player_instance.shoot(bullets, enemies, walls)
+                        player_instance.last_shoot_time = pygame.time.get_ticks()
+                else:
                     player_instance.shoot(bullets, enemies, walls)
-                    player_instance.last_shoot_time = pygame.time.get_ticks()
+                    player_instance.is_shooting = False
 
         if game_over:
             # 绘制游戏结束屏幕
