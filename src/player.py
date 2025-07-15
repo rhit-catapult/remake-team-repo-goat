@@ -223,9 +223,9 @@ class Player:
             if self.melee_time >= self.melee_duration:
                 self.melee_attacking = False
 
-    def switch_weapon(self, direction):
-        new_index = (self.current_weapon + direction) % len(self.weapons)
-        self.current_weapon = new_index
+    def switch_weapon(self, index):
+        if index < len(self.weapons):
+            self.current_weapon = index
 
     def add_weapon(self, weapon_name):
         if weapon_name not in self.weapons:

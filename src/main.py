@@ -9,22 +9,16 @@ import level
 import loot
 import player
 
-
 pygame.init()
-
 
 screen = pygame.display.set_mode((constant.WIDTH, constant.HEIGHT))
 pygame.display.set_caption("2D shoting game")
 
 
-
-
 def main():
     clock = pygame.time.Clock()
 
-
     player_instance = player.Player(constant.WIDTH // 2, constant.HEIGHT // 2)
-
 
     current_level = 1
     level_instance = level.Level(current_level)
@@ -33,9 +27,7 @@ def main():
     weapon_drops = level_instance.weapon_drops
     player_instance.x, player_instance.y = level_instance.initial_player_pos
 
-
     bullets = []
-
 
     game_over = False
     level_complete = False
@@ -64,10 +56,17 @@ def main():
                     player_instance.reload()
                 if event.key == pygame.K_j and not game_over:  # 射击
                     player_instance.shoot(bullets, enemies, walls)
-                if event.key == pygame.K_q:  # 切换武器（上一个）
-                    player_instance.switch_weapon(-1)
-                if event.key == pygame.K_e:  # 切换武器（下一个）
+                if event.key == pygame.K_1:  # 切换武器（0）
+                    player_instance.switch_weapon(0)
+                if event.key == pygame.K_2:  # 切换武器（1）
                     player_instance.switch_weapon(1)
+                if event.key == pygame.K_3:
+                    player_instance.switch_weapon(2)
+                if event.key == pygame.K_4:
+                    player_instance.switch_weapon(3)
+                if event.key == pygame.K_5:
+                    player_instance.switch_weapon(4)
+
                 if event.key == pygame.K_SPACE and (game_over or level_complete):  # 重新开始游戏或进入下一关
                     if game_over:
                         return main()
