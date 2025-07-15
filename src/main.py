@@ -9,23 +9,23 @@ import level
 import loot
 import player
 
-# 初始化 Pygame
+
 pygame.init()
 
-# 游戏窗口设置
+
 screen = pygame.display.set_mode((constant.WIDTH, constant.HEIGHT))
-pygame.display.set_caption("增强版 2D 射击闯关游戏 - 移动修复版")
+pygame.display.set_caption("2D shoting game")
 
 
-# 关卡设计（减少到3关）
-# 游戏主函数（优化键盘输入处理）
+
+
 def main():
     clock = pygame.time.Clock()
 
-    # 创建玩家
+
     player_instance = player.Player(constant.WIDTH // 2, constant.HEIGHT // 2)
 
-    # 关卡管理
+
     current_level = 1
     level_instance = level.Level(current_level)
     walls = level_instance.walls
@@ -33,10 +33,10 @@ def main():
     weapon_drops = level_instance.weapon_drops
     player_instance.x, player_instance.y = level_instance.initial_player_pos
 
-    # 创建子弹列表
+
     bullets = []
 
-    # 游戏状态
+
     game_over = False
     level_complete = False
     score = 0

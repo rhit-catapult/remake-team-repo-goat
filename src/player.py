@@ -36,9 +36,9 @@ class Player:
         self.score = 0
         self.melee_attacking = False
         self.melee_time = 0
-        self.melee_duration = 20  # 近战攻击持续时间
-        self.melee_range = 50  # 近战攻击范围
-        self.melee_damage = 25  # 近战伤害
+        self.melee_duration = 10  # 近战攻击持续时间
+        self.melee_range = 25  # 近战攻击范围
+        self.melee_damage = 10  # 近战伤害
         self.kills = 0
         self.weapon_icons = {
             "Pistol": image.load_image("pistol", (40, 30)),
@@ -185,13 +185,13 @@ class Player:
 
             # 根据武器类型创建子弹
             if weapon == "Pistol":
-                bullets.append(bullet.Bullet(self.x, self.y, self.direction, 10, 20, "Pistol", walls))
+                bullets.append(bullet.Bullet(self.x, self.y, self.direction, 10, 5, "Pistol", walls))
             elif weapon == "Shotgun":
                 for angle_offset in [-10, 0, 10]:
                     bullets.append(
-                        bullet.Bullet(self.x, self.y, self.direction + angle_offset, 8, 15, "Shotgun", walls))
+                        bullet.Bullet(self.x, self.y, self.direction + angle_offset, 8, 12, "Shotgun", walls))
             elif weapon == "Rifle":
-                bullets.append(bullet.Bullet(self.x, self.y, self.direction, 15, 15, "Rifle", walls))
+                bullets.append(bullet.Bullet(self.x, self.y, self.direction, 25, 10, "Rifle", walls))
             elif weapon == "Rocket Launcher":
                 bullets.append(
                     bullet.Bullet(self.x, self.y, self.direction, 5, 30, "Rocket Launcher", walls, is_explosive=True))

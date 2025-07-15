@@ -17,8 +17,8 @@ class WeaponDrop:
             self.icon = load_image("shotgun_icon", (20, 20))
         elif weapon_type == "Rifle":
             self.icon = load_image("rifle_icon", (25, 15))
-        elif weapon_type == "Rocket Launcher":
-            self.icon = load_image("rocket_icon", (20, 20))
+        # elif weapon_type == "Rocket Launcher":
+        #     self.icon = load_image("rocket_icon", (20, 20))
         elif weapon_type == "Knife":
             self.icon = load_image("knife_icon", (20, 20))
 

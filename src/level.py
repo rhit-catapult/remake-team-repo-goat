@@ -35,8 +35,11 @@ class Level:
         self.enemies = [
             enemy.Enemy(300, 300, "normal"),
             enemy.Enemy(700, 300, "normal"),
-            enemy.Enemy(500, 500, "normal")
-        ]
+            enemy.Enemy(500, 500, "normal"),
+            enemy.Enemy(350, 300, "normal"),
+            enemy.Enemy(750, 300, "normal"),
+
+            enemy.Enemy(600, 500, "sniper")        ]
 
         # 初始武器掉落
         self.weapon_drops = [
