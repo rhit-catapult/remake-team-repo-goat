@@ -95,8 +95,14 @@ def main():
                     player_instance.moving["right"] = False
 
             if event.type == pygame.MOUSEBUTTONDOWN and not game_over:
-                if event.button == 1:  # 左键射击
+                player_instance.is_shooting = True
+            if event.type == pygame.MOUSEBUTTONUP or game_over:
+                player_instance.is_shooting = False
+
+            if player_instance.is_shooting:  # 左键射击
+                if player_instance.last_shoot_time - pygame.time.get_ticks() < 30:
                     player_instance.shoot(bullets, enemies, walls)
+                    player_instance.last_shoot_time = pygame.time.get_ticks()
 
         if game_over:
             # 绘制游戏结束屏幕

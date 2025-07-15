@@ -49,6 +49,8 @@ class Player:
         }
         # 移动状态
         self.moving = {"up": False, "down": False, "left": False, "right": False}
+        self.last_shoot_time = 0
+        self.is_shooting = False
 
     def draw(self, screen):
         # 绘制玩家身体
