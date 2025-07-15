@@ -40,7 +40,6 @@ def main():
     game_over = False
     level_complete = False
     score = 0
-    level_transition_timer = 0
 
     # 游戏主循环
     while True:
