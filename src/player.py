@@ -6,6 +6,13 @@ import bullet
 
 # 玩家类（优化移动系统）
 class Player:
+    pygame.mixer.init()
+    pistol_sound = pygame.mixer.Sound("pistol.wav")
+    shotgun_sound = pygame.mixer.Sound("shotgun.wav")
+    rifle_sound = pygame.mixer.Sound("rifle.wav")
+    rocket_sound = pygame.mixer.Sound("rocket.wav")
+    knife_sound = pygame.mixer.Sound("knife.wav")
+    reload_sound = pygame.mixer.Sound("reload.wav")
     def __init__(self, x, y):
         self.x = x
         self.y = y
@@ -37,8 +44,8 @@ class Player:
         self.melee_attacking = False
         self.melee_time = 0
         self.melee_duration = 10  # 近战攻击持续时间
-        self.melee_range = 25  # 近战攻击范围
-        self.melee_damage = 10  # 近战伤害
+        self.melee_range = 35 # 近战攻击范围
+        self.melee_damage = 15  # 近战伤害
         self.kills = 0
         self.weapon_icons = {
             "Pistol": image.load_image("pistol", (40, 30)),
@@ -154,6 +161,7 @@ class Player:
             if not self.melee_attacking:
                 self.melee_attacking = True
                 self.melee_time = 0
+                pygame.mixer.Sound.play(self.knife_sound)
 
                 # 检测近战攻击范围内的敌人
                 angle_rad = math.radians(self.direction)
@@ -179,24 +187,40 @@ class Player:
                             if enemy.take_damage(self.melee_damage):
                                 self.kills += 1
                                 enemies.remove(enemy)
+
                 return True
 
         # 远程武器处理
         if self.ammo[weapon] > 0:
             self.ammo[weapon] -= 1
-
-            # 根据武器类型创建子弹
             if weapon == "Pistol":
+                pygame.mixer.Sound.play(self.pistol_sound)
                 bullets.append(bullet.Bullet(self.x, self.y, self.direction, 10, 5, "Pistol", walls))
             elif weapon == "Shotgun":
+                pygame.mixer.Sound.play(self.shotgun_sound)
                 for angle_offset in [-10, 0, 10]:
                     bullets.append(
-                        bullet.Bullet(self.x, self.y, self.direction + angle_offset, 8, 12, "Shotgun", walls))
+                        bullet.Bullet(self.x, self.y, self.direction + angle_offset, 8, 20, "Shotgun", walls))
             elif weapon == "Rifle":
-                bullets.append(bullet.Bullet(self.x, self.y, self.direction, 25, 10, "Rifle", walls))
+                pygame.mixer.Sound.play(self.rifle_sound)
+                bullets.append(bullet.Bullet(self.x, self.y, self.direction, 20, 8, "Rifle", walls))
             elif weapon == "Rocket Launcher":
+                pygame.mixer.Sound.play(self.rocket_sound)
                 bullets.append(
-                    bullet.Bullet(self.x, self.y, self.direction, 5, 30, "Rocket Launcher", walls, is_explosive=True))
+                    bullet.Bullet(self.x, self.y, self.direction, 5, 80, "Rocket Launcher", walls, is_explosive=True))
+
+            # 根据武器类型创建子弹
+            # if weapon == "Pistol":
+            #     bullets.append(bullet.Bullet(self.x, self.y, self.direction, 10, 5, "Pistol", walls))
+            # elif weapon == "Shotgun":
+            #     for angle_offset in [-10, 0, 10]:
+            #         bullets.append(
+            #             bullet.Bullet(self.x, self.y, self.direction + angle_offset, 8, 15, "Shotgun", walls))
+            # elif weapon == "Rifle":
+            #     bullets.append(bullet.Bullet(self.x, self.y, self.direction, 25, 12, "Rifle", walls))
+            # elif weapon == "Rocket Launcher":
+            #     bullets.append(
+            #         bullet.Bullet(self.x, self.y, self.direction, 5, 60, "Rocket Launcher", walls, is_explosive=True))
 
             return True
         return False
@@ -204,11 +228,13 @@ class Player:
     def reload(self):
         weapon = self.weapons[self.current_weapon]
         if weapon == "Knife":
+
             return
 
         if not self.reloading and self.ammo[weapon] < self.max_ammo[weapon]:
             self.reloading = True
             self.reload_time = 0
+            pygame.mixer.Sound.play(self.reload_sound)
 
     def update(self):
         # 更新换弹状态

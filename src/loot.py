@@ -25,14 +25,22 @@ class WeaponDrop:
     def draw(self, screen):
         pygame.draw.circle(screen, self.color, (int(self.x), int(self.y)), self.radius)
 
-        # 绘制武器图标
-        if self.icon:
-            screen.blit(self.icon, (self.x - self.icon.get_width() // 2,
-                                    self.y - self.icon.get_height() // 2))
-        else:
-            font = pygame.font.SysFont(None, 24)
-            text = font.render(self.weapon_type[0], True, (255, 255, 255))
-            screen.blit(text, (self.x - text.get_width() // 2, self.y - text.get_height() // 2))
+        # 直接绘制武器名称文本
+        font = pygame.font.SysFont(None, 24)
+        text = font.render(self.weapon_type[0], True, (255, 255, 255))  # 使用首字母
+        screen.blit(text, (self.x - text.get_width() // 2, self.y - text.get_height() // 2))
+
+    # def draw(self, screen):
+    #     pygame.draw.circle(screen, self.color, (int(self.x), int(self.y)), self.radius)
+    #
+    #     # 绘制武器图标
+    #     if self.icon:
+    #         screen.blit(self.icon, (self.x - self.icon.get_width() // 2,
+    #                                 self.y - self.icon.get_height() // 2))
+    #     else:
+    #         font = pygame.font.SysFont(None, 24)
+    #         text = font.render(self.weapon_type[0], True, (255, 255, 255))
+    #         screen.blit(text, (self.x - text.get_width() // 2, self.y - text.get_height() // 2))
 
     def check_collision(self, player):
         dx = self.x - player.x

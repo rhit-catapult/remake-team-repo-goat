@@ -38,6 +38,7 @@ class Level:
             enemy.Enemy(500, 500, "normal"),
             enemy.Enemy(350, 300, "normal"),
             enemy.Enemy(750, 300, "normal"),
+            # enemy.Enemy(800, 300, "boss"),
 
             enemy.Enemy(600, 500, "sniper")        ]
 
@@ -84,16 +85,16 @@ class Level:
             wall.Wall(50, 50, 30, 600, "metal"),
             wall.Wall(50, 620, 900, 30, "metal"),
             wall.Wall(920, 50, 30, 600, "metal"),
-
-            # 内部障碍
-            wall.Wall(150, 150, 200, 30, "normal"),
-            wall.Wall(150, 150, 30, 200, "normal"),
-            wall.Wall(650, 150, 200, 30, "normal"),
-            wall.Wall(820, 150, 30, 200, "normal"),
-            wall.Wall(150, 500, 200, 30, "normal"),
-            wall.Wall(150, 330, 30, 200, "normal"),
-            wall.Wall(650, 500, 200, 30, "normal"),
-            wall.Wall(820, 330, 30, 200, "normal"),
+            #
+            # # 内部障碍
+            # wall.Wall(150, 150, 200, 30, "normal"),
+            # wall.Wall(150, 150, 30, 200, "normal"),
+            # wall.Wall(650, 150, 200, 30, "normal"),
+            # wall.Wall(820, 150, 30, 200, "normal"),
+            # wall.Wall(150, 500, 200, 30, "normal"),
+            # wall.Wall(150, 330, 30, 200, "normal"),
+            # wall.Wall(650, 500, 200, 30, "normal"),
+            # wall.Wall(820, 330, 30, 200, "normal"),
 
             # Wall(400, 250, 200, 30, "breakable"),
             # Wall(400, 450, 200, 30, "breakable"),
@@ -114,7 +115,7 @@ class Level:
             enemy.Enemy(750, 350, "sniper"),
             enemy.Enemy(350, 450, "sniper"),
             enemy.Enemy(750, 450, "sniper"),
-            enemy.Enemy(550, 400, "boss")
+            enemy.Enemy(550, 500, "boss")
         ]
 
         # 武器掉落

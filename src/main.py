@@ -11,6 +11,13 @@ import player
 
 pygame.init()
 
+pistol_sound = pygame.mixer.Sound("pistol.wav")
+shotgun_sound = pygame.mixer.Sound("shotgun.wav")
+rifle_sound = pygame.mixer.Sound("rifle.wav")
+rocket_sound = pygame.mixer.Sound("rocket.wav")
+knife_sound = pygame.mixer.Sound("knife.wav")
+reload_sound = pygame.mixer.Sound("reload.wav")
+
 screen = pygame.display.set_mode((constant.WIDTH, constant.HEIGHT))
 pygame.display.set_caption("2D shoting game")
 
@@ -101,24 +108,24 @@ def main():
 
             if player_instance.is_shooting:  # 左键射击
                 if player_instance.weapons[player_instance.current_weapon] == "Rifle":
-                    if player_instance.last_shoot_time - pygame.time.get_ticks() < 30: #冷却时间
+                    if pygame.time.get_ticks() - player_instance.last_shoot_time >30:  # 冷却时间
                         player_instance.shoot(bullets, enemies, walls)
                         player_instance.last_shoot_time = pygame.time.get_ticks()
                 elif player_instance.weapons[player_instance.current_weapon] == "Knife":
                     player_instance.shoot(bullets, enemies, walls)
                     player_instance.is_shooting = False
                 elif player_instance.weapons[player_instance.current_weapon] == "Rocket Launcher":
-                    if player_instance.last_shoot_time - pygame.time.get_ticks() < 60: #冷却时间
+                    if pygame.time.get_ticks() - player_instance.last_shoot_time >250:  # 冷却时间
                         player_instance.shoot(bullets, enemies, walls)
                         player_instance.last_shoot_time = pygame.time.get_ticks()
                         player_instance.is_shooting = False
                 elif player_instance.weapons[player_instance.current_weapon] == "Shotgun":
-                    if player_instance.last_shoot_time - pygame.time.get_ticks() < 60: #冷却时间
+                    if pygame.time.get_ticks() - player_instance.last_shoot_time >1000:  # 冷却时间
                         player_instance.shoot(bullets, enemies, walls)
                         player_instance.last_shoot_time = pygame.time.get_ticks()
                         player_instance.is_shooting = False
                 elif player_instance.weapons[player_instance.current_weapon] == "Pistol":
-                    if player_instance.last_shoot_time - pygame.time.get_ticks() < 60: #冷却时间
+                    if pygame.time.get_ticks() - player_instance.last_shoot_time > 220:  # 冷却时间
                         player_instance.shoot(bullets, enemies, walls)
                         player_instance.last_shoot_time = pygame.time.get_ticks()
                         player_instance.is_shooting = False
@@ -305,21 +312,16 @@ def main():
             screen.blit(ctrl_text, (constant.WIDTH - ctrl_text.get_width() - 20, 20 + i * 30))
 
         # 绘制武器栏
+        # 绘制武器栏
         weapon_y = constant.HEIGHT - 50
         for i, weapon in enumerate(player_instance.weapons):
             color = constant.WEAPON_HIGHLIGHT if i == player_instance.current_weapon else (100, 100, 100)
             pygame.draw.rect(screen, color, (20 + i * 150, weapon_y, 140, 40))
             pygame.draw.rect(screen, (50, 50, 50), (20 + i * 150, weapon_y, 140, 40), 2)
 
+            # 直接绘制武器名称文本
             weapon_text = controls_font.render(weapon, True, (255, 255, 255))
-
-            # 绘制武器图标
-            if weapon in player_instance.weapon_icons:
-                icon = player_instance.weapon_icons[weapon]
-                screen.blit(icon, (20 + i * 150 + 70 - icon.get_width() // 2,
-                                   weapon_y + 20 - icon.get_height() // 2))
-            else:
-                screen.blit(weapon_text, (20 + i * 150 + 70 - weapon_text.get_width() // 2, weapon_y + 15))
+            screen.blit(weapon_text, (20 + i * 150 + 70 - weapon_text.get_width() // 2, weapon_y + 15))
 
             # 如果是远程武器，显示弹药
             if weapon != "Knife":
@@ -327,6 +329,28 @@ def main():
                                                  True,
                                                  (255, 255, 255))
                 screen.blit(ammo_text, (20 + i * 150 + 70 - ammo_text.get_width() // 2, weapon_y + 25))
+        # weapon_y = constant.HEIGHT - 50
+        # for i, weapon in enumerate(player_instance.weapons):
+        #     color = constant.WEAPON_HIGHLIGHT if i == player_instance.current_weapon else (100, 100, 100)
+        #     pygame.draw.rect(screen, color, (20 + i * 150, weapon_y, 140, 40))
+        #     pygame.draw.rect(screen, (50, 50, 50), (20 + i * 150, weapon_y, 140, 40), 2)
+        #
+        #     weapon_text = controls_font.render(weapon, True, (255, 255, 255))
+        #
+        #     # 绘制武器图标
+        #     if weapon in player_instance.weapon_icons:
+        #         icon = player_instance.weapon_icons[weapon]
+        #         screen.blit(icon, (20 + i * 150 + 70 - icon.get_width() // 2,
+        #                            weapon_y + 20 - icon.get_height() // 2))
+        #     else:
+        #         screen.blit(weapon_text, (20 + i * 150 + 70 - weapon_text.get_width() // 2, weapon_y + 15))
+        #
+        #     # 如果是远程武器，显示弹药
+        #     if weapon != "Knife":
+        #         ammo_text = controls_font.render(f"{player_instance.ammo[weapon]}/{player_instance.max_ammo[weapon]}",
+        #                                          True,
+        #                                          (255, 255, 255))
+        #         screen.blit(ammo_text, (20 + i * 150 + 70 - ammo_text.get_width() // 2, weapon_y + 25))
 
         # 游戏结束检查
         if player_instance.health <= 0:
